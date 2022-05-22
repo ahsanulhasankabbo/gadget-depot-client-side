@@ -1,0 +1,11 @@
+.banner {
+    background-image: url('./banner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 90vh;
+}
+.banner button{
+    border: 1px solid #d3c8c8;
+    background-color: transparent;
+    color: #d3c8c8;
+}
