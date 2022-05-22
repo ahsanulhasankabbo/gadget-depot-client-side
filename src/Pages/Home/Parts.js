@@ -12,7 +12,7 @@ const Parts = () => {
     }
     return (
         <div>
-            <h1 className='text-4xl my-12 text-center'>Available parts in <span className='text-primary'>Gadget Depot</span></h1>
+            <h1 className='text-4xl my-12 text-center'>Available Parts in <span className='text-primary font-semibold'>Gadget Depot</span></h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mx-12'>
                 {
                     parts.map(part => <Part
