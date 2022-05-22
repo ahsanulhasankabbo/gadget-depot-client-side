@@ -12,7 +12,7 @@ const Part = ({part}) => {
                 <p>Available Quantity : {availableQuantity}</p>
                 <p><small>{discription}</small></p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Buy Now</button>
+                    <button className="btn btn-primary">Purchase</button>
                 </div>
             </div>
         </div>
