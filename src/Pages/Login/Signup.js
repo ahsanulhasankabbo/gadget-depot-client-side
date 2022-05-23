@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
@@ -8,6 +8,8 @@ import Loading from '../Shared/Loading';
 const Signup = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const [ createUserWithEmailAndPassword,user, loading,error] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile, updating, uError] = useUpdateProfile(auth);
+
     const navigate = useNavigate();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -17,12 +19,13 @@ const Signup = () => {
     if ( loading || gLoading) {
         return <Loading></Loading>
     }
-    if(user){
+    if(user || gUser){
         navigate('/')
     }
-    const onSubmit = data => {
-        console.log(data);
-        createUserWithEmailAndPassword(data.email, data.password)
+    const onSubmit = async data => {
+        // console.log(data);
+        await createUserWithEmailAndPassword(data.email, data.password);
+        await updateProfile({displayName:data?.name})
     };
     return (
         <div className='flex h-screen justify-center items-center'>
@@ -35,12 +38,14 @@ const Signup = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input  {...register("name", {
-                                required: {
-                                    value: true,
-                                    message: 'Name is required'
-                                }
-                            })} type="name" placeholder="Enter your name" className="input input-bordered w-full max-w-xs" />
+                            <input type="name" placeholder="Enter your name" className="input input-bordered w-full max-w-xs" 
+                                {...register("name", {
+                                    required: {
+                                        value: true,
+                                        message: 'Name is required'
+                                    }
+                                })}
+                            />
                             <label className="label">
                                 {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
 

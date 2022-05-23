@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 const Part = ({part}) => {
-    const {name, image, discription,minimunOrderQuantity,availableQuantity,price} = part;
+    const {_id,name, image, discription,minimunOrderQuantity,availableQuantity,price} = part;
     return (
         <div className="card bg-base-100 shadow-xl">
             <figure><img src={image} alt="Shoes" /></figure>
@@ -12,7 +13,7 @@ const Part = ({part}) => {
                 <p>Available Quantity : {availableQuantity}</p>
                 <p><small>{discription}</small></p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Purchase</button>
+                    <Link to={`/purchase/${_id}`}><button className="btn btn-primary">Purchase</button></Link>
                 </div>
             </div>
         </div>
