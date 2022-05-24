@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import React, { useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
@@ -9,6 +10,8 @@ import Loading from '../Shared/Loading';
 
 const Purchase = () => {
     const restockRef = useRef('');
+    const restockAddress = useRef('');
+    const restockPhone = useRef('');
     const [user] = useAuthState(auth);
     // console.log(user)
     const { id } = useParams();
@@ -18,14 +21,19 @@ const Purchase = () => {
         return <Loading></Loading>
     }
 
-    const handleRestock = id => {
+    const handleSubmit = event => {
+        event.preventDefault();
         const restockQuantity = restockRef.current.value;
+        const address = restockAddress.current.value;
+        const phone = restockPhone.current.value;
         if (restockQuantity > gadget.minimunOrderQuantity && restockQuantity < gadget.availableQuantity) {
             const { availableQuantity, ...rest } = gadget;
             const newQuantity = parseInt(availableQuantity) - parseInt(restockQuantity);
             const newItem = { availableQuantity: newQuantity, ...rest };
 
-            const url = `http://localhost:5000/gadget/${id}`;
+
+
+            const url = `http://localhost:5000/gadget/${gadget._id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -40,13 +48,40 @@ const Purchase = () => {
                     if (data.acknowledged === true) {
                         // console.log(data)
                         refetch();
-                        toast.success('Your order is set!')
                     }
                 });
         }
-        else{
+        else {
             toast.error('Please Provide a valid number')
         }
+
+        const quantity = {
+            _id: gadget._id,
+            price: gadget.price,
+            image: gadget.image,
+            minimunOrderQuantity: gadget.minimunOrderQuantity,
+            availableQuantity: gadget.availableQuantity,
+            name: gadget.name,
+            discription: gadget.discription,
+            address: address,
+            phone: phone
+        }
+
+        const url = `http://localhost:5000/gadget/${gadget._id}`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(quantity)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success === true) {
+                    refetch();
+                    toast.success('Your order is set!')
+                }
+            });
     }
 
     return (
@@ -64,24 +99,26 @@ const Purchase = () => {
                     <input type="checkbox" id="purchaseModal" className="modal-toggle" />
                     <div className="modal modal-bottom sm:modal-middle">
                         <div className="modal-box">
-                            <input type="text" value={user.displayName} disabled class="input input-bordered w-full max-w-xs" />
-                            <input type="email" value={user.email} disabled class="input input-bordered w-full my-3 max-w-xs" />
-                            <input type="text" placeholder='Enter Your Address' class="input input-bordered w-full max-w-xs" />
-                            <input type="number" placeholder='Enter Your Phone Number' class="input input-bordered my-3 w-full max-w-xs" />
-                            <input ref={restockRef} type="number" placeholder='Set Order Quantity' class="input input-bordered w-full max-w-xs" />
+                            <form onSubmit={handleSubmit}>
+                                <input type="text" value={user.displayName} disabled class="input input-bordered w-full max-w-xs" />
+                                <input type="email" value={user.email} disabled class="input input-bordered w-full my-3 max-w-xs" />
+                                <input ref={restockAddress} type="text" placeholder='Enter Your Address' class="input input-bordered w-full max-w-xs" />
+                                <input ref={restockPhone} type="number" placeholder='Enter Your Phone Number' class="input input-bordered my-3 w-full max-w-xs" />
+                                <input ref={restockRef} type="number" placeholder='Set Order Quantity' class="input input-bordered w-full max-w-xs" />
 
-                            <div className="modal-action">
+                                <div className="modal-action">
 
-                                <button onClick={() => handleRestock(id)} className="btn btn-primary">Set order</button>
+                                    <button className="btn btn-primary">Set order</button>
 
-                                {/* <label onClick={()=> handleRestock(gadget._id)} className="btn btn-primary">Set Order</label> */}
-                                <label htmlFor="purchaseModal" className="btn btn-primary">Cancal</label>
-                            </div>
+                                    {/* <label onClick={()=> handleRestock(gadget._id)} className="btn btn-primary">Set Order</label> */}
+                                    <label htmlFor="purchaseModal" className="btn btn-primary">Cancal</label>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };
