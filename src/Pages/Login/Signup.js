@@ -14,13 +14,14 @@ const Signup = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     if (user || gUser) {
-        console.log(user || gUser);
+        // console.log(user || gUser);
     }
     if ( loading || gLoading) {
         return <Loading></Loading>
     }
     if(user || gUser){
         navigate('/')
+        // console.log(user || gUser);
     }
     const onSubmit = async data => {
         // console.log(data);

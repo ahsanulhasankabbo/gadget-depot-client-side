@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -12,6 +12,7 @@ const Purchase = () => {
     const restockAddress = useRef('');
     const restockPhone = useRef('');
     const [user] = useAuthState(auth);
+    const [error, setError] = useState('');
     // console.log(user)
     const { id } = useParams();
     const { data: gadget, isLoading, refetch } = useQuery('gadget', () => fetch(`http://localhost:5000/gadget/${id}`).then(res => res.json()))
@@ -25,7 +26,7 @@ const Purchase = () => {
         const restockQuantity = restockRef.current.value;
         const address = restockAddress.current.value;
         const phone = restockPhone.current.value;
-        if (restockQuantity > gadget.minimunOrderQuantity && restockQuantity < gadget.availableQuantity) {
+        if (restockQuantity >= gadget.minimunOrderQuantity && restockQuantity <= gadget.availableQuantity) {
             const { availableQuantity, ...rest } = gadget;
             const newQuantity = parseInt(availableQuantity) - parseInt(restockQuantity);
             const newItem = { availableQuantity: newQuantity, ...rest };
@@ -52,13 +53,19 @@ const Purchase = () => {
                 });
         }
         else {
-            toast.error('Please Provide a valid number')
+            if(restockQuantity < gadget.minimunOrderQuantity){
+                setError('Please order more quantity!');
+            }
+            else{
+                setError('Sorry,we dont have enough quantity!')
+            }
         }
 
         const quantity = {
-            _id: gadget._id,
+            // _id: gadget._id,
             price: gadget.price,
             image: gadget.image,
+            email: user?.email,
             minimunOrderQuantity: gadget.minimunOrderQuantity,
             availableQuantity: gadget.availableQuantity,
             name: gadget.name,
@@ -104,7 +111,8 @@ const Purchase = () => {
                                 <input type="email" value={user.email} disabled className="input input-bordered w-full my-3 max-w-xs" />
                                 <input ref={restockAddress} type="text" placeholder='Enter Your Address' className="input input-bordered w-full max-w-xs" />
                                 <input ref={restockPhone} type="number" placeholder='Enter Your Phone Number' className="input input-bordered my-3 w-full max-w-xs" />
-                                <input ref={restockRef} type="number" placeholder='Set Order Quantity' className="input input-bordered w-full max-w-xs" />
+                                <input ref={restockRef} type="number" placeholder='Set Order Quantity' className="input input-bordered w-full max-w-xs" /> <br />
+                                <p className='text-red-500 mt-3'>{error}</p>
 
                                 <div className="modal-action">
 
