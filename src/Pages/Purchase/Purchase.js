@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer';
 import React, { useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
@@ -48,6 +47,7 @@ const Purchase = () => {
                     if (data.acknowledged === true) {
                         // console.log(data)
                         refetch();
+                        toast.success('Your order is set!')
                     }
                 });
         }
@@ -67,7 +67,7 @@ const Purchase = () => {
             phone: phone
         }
 
-        const url = `http://localhost:5000/gadget/${gadget._id}`;
+        const url = `http://localhost:5000/gadget`;
         fetch(url, {
             method: 'POST',
             headers: {
@@ -79,7 +79,7 @@ const Purchase = () => {
             .then(data => {
                 if (data.success === true) {
                     refetch();
-                    toast.success('Your order is set!')
+                    
                 }
             });
     }
@@ -100,11 +100,11 @@ const Purchase = () => {
                     <div className="modal modal-bottom sm:modal-middle">
                         <div className="modal-box">
                             <form onSubmit={handleSubmit}>
-                                <input type="text" value={user.displayName} disabled class="input input-bordered w-full max-w-xs" />
-                                <input type="email" value={user.email} disabled class="input input-bordered w-full my-3 max-w-xs" />
-                                <input ref={restockAddress} type="text" placeholder='Enter Your Address' class="input input-bordered w-full max-w-xs" />
-                                <input ref={restockPhone} type="number" placeholder='Enter Your Phone Number' class="input input-bordered my-3 w-full max-w-xs" />
-                                <input ref={restockRef} type="number" placeholder='Set Order Quantity' class="input input-bordered w-full max-w-xs" />
+                                <input type="text" value={user.displayName} disabled className="input input-bordered w-full max-w-xs" />
+                                <input type="email" value={user.email} disabled className="input input-bordered w-full my-3 max-w-xs" />
+                                <input ref={restockAddress} type="text" placeholder='Enter Your Address' className="input input-bordered w-full max-w-xs" />
+                                <input ref={restockPhone} type="number" placeholder='Enter Your Phone Number' className="input input-bordered my-3 w-full max-w-xs" />
+                                <input ref={restockRef} type="number" placeholder='Set Order Quantity' className="input input-bordered w-full max-w-xs" />
 
                                 <div className="modal-action">
 
