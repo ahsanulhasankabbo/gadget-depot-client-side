@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
-import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -19,18 +20,18 @@ const MyOrders = () => {
         fetch(url, {
             method: 'DELETE'
         })
-        .then(res => res.json())
-        .then(data => {
-            const remaining = orders.filter(order => order._id !== id);
-            setOrders(remaining);
-        })
+            .then(res => res.json())
+            .then(data => {
+                const remaining = orders.filter(order => order._id !== id);
+                setOrders(remaining);
+                toast.success('Your order is Deleted')
+            })
     }
 
     return (
         <div>
-            <h1>order is : {orders.length}</h1>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
                     <thead>
                         <tr>
                             <th></th>
@@ -51,21 +52,19 @@ const MyOrders = () => {
                                     <td>${order.price}</td>
                                     <td><button className='bg-green-500 px-6 py-2 rounded text-white'>Pay</button></td>
                                     <td>
-                                    <label for="my-modal-6" class="btn modal-button">Delete</label>
+                                        <label for="my-modal-6" className="btn modal-button">Delete</label>
 
-                                        {/* <label for="my-modal-6" class="modal-button"><button className=' bg-red-500 px-6 py-2 rounded text-white'>Delete</button></label> */}
-                                        <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-                                        <div class="modal modal-bottom sm:modal-middle">
-                                            <div class="modal-box">
-                                                <h3 class="font-bold text-lg">Congratulations random Interner user!</h3>
+                                        <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+                                        <div className="modal modal-bottom sm:modal-middle">
+                                            <div className="modal-box">
+                                                <h3 className="font-bold text-lg">Are you sure you want to delete?</h3>
 
-                                                <div class="modal-action">
-                                                    <button onClick={() => handleDelete(order._id)} className='bg-red-500 px-6 py-2 rounded text-white'>Delete</button>
-                                                    <label for="my-modal-6" class="btn">Cancel</label>
+                                                <div className="modal-action">
+                                                    <button onClick={() => handleDelete(order._id)} className='bg-red-500 px-6 py-2 rounded text-white'>Yes</button>
+                                                    <label for="my-modal-6" className="btn">No</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <button onClick={() => handleDelete(order._id)} className='bg-red-500 px-6 py-2 rounded text-white'>Delete</button> */}
                                     </td>
                                 </tr>)
                         }
@@ -73,7 +72,7 @@ const MyOrders = () => {
                     </tbody>
                 </table>
             </div>
-
+            <ToastContainer />
         </div>
     );
 };

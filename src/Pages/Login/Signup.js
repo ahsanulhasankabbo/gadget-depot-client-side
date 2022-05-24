@@ -13,18 +13,15 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    if (user || gUser) {
-        // console.log(user || gUser);
-    }
-    if ( loading || gLoading) {
+    if ( loading || gLoading || updating) {
         return <Loading></Loading>
     }
     if(user || gUser){
         navigate('/')
-        // console.log(user || gUser);
+        console.log(user || gUser);
     }
     const onSubmit = async data => {
-        // console.log(data);
+        console.log(data);
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({displayName:data?.name})
     };

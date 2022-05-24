@@ -16,7 +16,7 @@ const Header = () => {
             {
                 user ? <>
                 <Link to='/dashboard'>Dashboard</Link>
-                <Link to=''>{user.displayName}</Link>
+                <Link to=''>{user?.displayName}</Link>
                 <Link to=''><button onClick={logOut}>Signout</button></Link>
                 </>: 
                 <Link to='/login'>Login</Link>
