@@ -22,13 +22,6 @@ const Header = () => {
                 <Link to='/login'>Login</Link>
             }
         </li>
-        {/* {
-            user && <>
-                <Link to='/dashboard'>Dashboard</Link>
-                {user.displayName}
-                </>
-        }
-        <li>{user ? <button onClick={logOut}>Signout</button> : <Link to='/login'>Login</Link>} </li> */}
     </>
     return (
         <div className="navbar bg-slate-800 text-white">
