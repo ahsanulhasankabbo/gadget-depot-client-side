@@ -8,6 +8,7 @@ import MyOrders from './Pages/DashBoard/MyOrders';
 import MyProfile from './Pages/DashBoard/MyProfile';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
+import RequirAdmin from './Pages/Login/RequirAdmin';
 import RequirAuth from './Pages/Login/RequirAuth';
 import Signup from './Pages/Login/Signup';
 import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
@@ -31,7 +32,7 @@ function App() {
             <Route index element={<MyOrders></MyOrders>}></Route>
             <Route path='addreview' element={<AddReview></AddReview>}></Route>
             <Route path='myprofile' element={<MyProfile></MyProfile>}></Route>
-            <Route path='makeadmin' element={<MakeAdmin></MakeAdmin>}></Route>
+            <Route path='makeadmin' element={<RequirAdmin><MakeAdmin></MakeAdmin></RequirAdmin>}></Route>
         </Route>
         <Route path='/blogs' element={<Blogs></Blogs>}></Route>
         <Route path='/myportfolio' element={<MyPortfolio></MyPortfolio>}></Route>

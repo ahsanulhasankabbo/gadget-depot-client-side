@@ -18,8 +18,7 @@ const Header = () => {
             {
                 user ? <>
                 <Link to='/dashboard'>Dashboard</Link>
-                <Link to=''>{user?.displayName}</Link>
-                <Link to=''><button onClick={logOut}>Signout</button></Link>
+                <Link to=''><span className='btn border-orange-400 btn-sm border-2 px-4 bg-transparent rounded-2xl'><button onClick={logOut}>Signout  {user?.displayName?.split(' ')[0]}</button> </span></Link>
                 </>: 
                 <Link to='/login'>Login</Link>
             }
