@@ -8,10 +8,12 @@ const Header = () => {
     const [user, loading, error] = useAuthState(auth);
     const logOut = () => {
         signOut(auth)
+        localStorage.removeItem('accessToken');
     }
     const menuItems = <>
         <li><Link to='/'>Home</Link> </li>
         <li><Link to='/blogs'>Blogs</Link> </li>
+        <li><Link to='/myportfolio'>MyPortfolio</Link> </li>
         <li>
             {
                 user ? <>

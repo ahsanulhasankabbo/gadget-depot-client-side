@@ -5,19 +5,36 @@ import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
 import OrderRow from './OrderRow';
 import DeleteModal from './DeleteModal';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const MyOrders = () => {
     const [user] = useAuthState(auth);
     const [deleteModal, setDeleteModal] = useState(null);
+    const navigate = useNavigate();
 
-    const { data: result, isLoading, refetch } = useQuery('result', () => fetch(`http://localhost:5000/order?email=${user.email}`)
-        .then(res => res.json()))
+    const { data: result, isLoading, refetch } = useQuery('result', () => fetch(`http://localhost:5000/order?email=${user.email}`, {
+        method: 'GET',
+        headers: {
+            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    })
+        .then(res => {
+            // console.log('res', res)
+            if (res.status === 401 || res.status === 403) {
+                signOut(auth)
+                localStorage.removeItem('accessToken');
+                navigate('/');
+            }
+            return res.json()
+        }
+        ))
 
     if (isLoading) {
         return <Loading></Loading>
     }
 
-    
+
 
     return (
         <div>
@@ -35,7 +52,7 @@ const MyOrders = () => {
                     </thead>
                     <tbody>
                         {
-                            result.map((order, index) =>
+                            result?.map((order, index) =>
                                 <OrderRow
                                     key={order._id}
                                     order={order}

@@ -1,30 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import auth from '../../firebase.init';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import Loading from '../Shared/Loading';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
-    const [signInWithEmailAndPassword,user,loading,error,] = useSignInWithEmailAndPassword(auth);
+    const [signInWithEmailAndPassword, user, loading, error,] = useSignInWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
 
-    let signInError ;
+    const [token] = useToken(user || gUser);
+
+    let signInError;
 
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
 
-    if (user || gUser) {
-        console.log(user || gUser);
-        navigate(from, { replace: true });
-    }
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+        }
+    }, [token, from, navigate])
+
     if (error || gError) {
         signInError = <p className='text-red-500'><small>{error?.message || gError?.message}</small></p>
     }
-    if ( loading || gLoading) {
+    if (loading || gLoading) {
         return <Loading></Loading>
     }
     const onSubmit = data => {
@@ -43,7 +48,7 @@ const Login = () => {
                                 <span className="label-text">Email</span>
                             </label>
                             <input  {...register("email", {
-                                required:{
+                                required: {
                                     value: true,
                                     message: 'Email is required'
                                 },
@@ -53,9 +58,9 @@ const Login = () => {
                                 }
                             })} type="email" placeholder="Email Address" className="input input-bordered w-full max-w-xs" />
                             <label className="label">
-                            {errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-                            {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-                                
+                                {errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
+                                {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
+
                             </label>
                         </div>
 
@@ -65,7 +70,7 @@ const Login = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input  {...register("password", {
-                                required:{
+                                required: {
                                     value: true,
                                     message: 'Password is required'
                                 },
@@ -75,9 +80,9 @@ const Login = () => {
                                 }
                             })} type="password" placeholder="Enter your Password" className="input input-bordered w-full max-w-xs" />
                             <label className="label">
-                            {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-                            {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-                                
+                                {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
+                                {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
+
                             </label>
                         </div>
 
