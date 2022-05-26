@@ -2,7 +2,7 @@ import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ManageSingleOrder = ({ part, index,refetch }) => {
+const ManageSingleOrder = ({ part, index,refetch,setDeleteOrder }) => {
     const {_id, name} = part;
     const handleApprove = id => {
         const approve = {
@@ -33,7 +33,7 @@ const ManageSingleOrder = ({ part, index,refetch }) => {
                 {!part.paid && <button className='btn btn-sm btn-warning text-white'>Unpaid</button> }
                 {part.paid && <button onClick={() => handleApprove(_id)} disabled={part.approve} className='btn btn-sm btn-success text-white'>Paid</button> }
             </td>
-            <td> <label for="my-modal-6" class="btn btn-sm btn-error text-white">Delete</label></td>
+            <td> <label for="delete-order" onClick={()=> setDeleteOrder(part)} class="btn btn-sm btn-error text-white">Delete</label></td>
             <ToastContainer></ToastContainer>
         </tr>
     );

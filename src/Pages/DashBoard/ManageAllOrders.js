@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
+import DeleteOrder from './DeleteOrder';
 import ManageSingleOrder from './ManageSingleOrder';
 
 const ManageAllOrders = () => {
+    const [deleteOrder, setDeleteOrder] = useState(null);
     const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('http://localhost:5000/manageorder')
         .then(res => res.json()))
     if (isLoading) {
@@ -30,11 +32,15 @@ const ManageAllOrders = () => {
                                 part={part}
                                 index={index}
                                 refetch={refetch}
+                                setDeleteOrder={setDeleteOrder}
                             ></ManageSingleOrder>
                         )
                     }
                 </tbody>
             </table>
+            {
+                deleteOrder && <DeleteOrder deleteOrder={deleteOrder} setDeleteModal={setDeleteOrder} refetch={refetch}></DeleteOrder>
+            }
         </div>
     );
 };
