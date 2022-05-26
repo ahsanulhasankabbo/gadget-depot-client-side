@@ -10,10 +10,11 @@ const OrderRow = ({order,setDeleteModal,index}) => {
             <td>${order.price}</td>
             <td>
                 {(order.price && !order.paid) && <Link to={`/dashboard/payment/${order._id}`}><button className='bg-green-500 btn-sm rounded text-white'>Pay Now</button></Link>}
-                {(order.price && order.paid) && <Link to={`/dashboard/payment/${order._id}`}><button className='btn-primary btn-sm rounded text-white'>Paid</button></Link>}
+                {(order.price && order.paid && !order.approve) && <span className='btn btn-sm btn-warning text-white'>Pending</span>}
+                {(order.price && order.paid && order.approve) && <span className='btn btn-sm btn-info text-white'>Shipped</span>}
 
             </td>
-            <td> <label onClick={()=> setDeleteModal(order)} for="my-modal-6" class="btn btn-sm btn-error text-white">Delete</label></td>
+            <td> <label onClick={()=> setDeleteModal(order)} disabled={order.paid} for="my-modal-6" class="btn btn-sm btn-error text-white">Delete</label></td>
         </tr>
 
     );
