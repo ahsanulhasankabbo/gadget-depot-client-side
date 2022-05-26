@@ -6,7 +6,7 @@ import user3 from './images/user3.jpg'
 const Service = () => {
     return (
         <div className='my-12'>
-            <h1 className='text-4xl my-12 font-semibold text-center text-primary'>Our Experts</h1>
+            <h1 className='text-4xl m-12 font-semibold text-center text-primary divider'>Our Experts</h1>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-16 mx-16'>
                 <div className='border rounded-xl p-10'>
                     <div class="avatar flex justify-center">

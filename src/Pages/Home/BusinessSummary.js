@@ -3,7 +3,7 @@ import { FaUserAlt,FaHands,FaSplotch,FaScroll } from "react-icons/fa";
 const BusinessSummary = () => {
     return (
         <div>
-            <h1 className='my-12 text-2xl md:text-4xl text-center'>Bussiness Summary</h1>
+            <h1 className='m-12 text-2xl md:text-4xl text-center divider'>Bussiness Summary</h1>
             <div className="stats stats-vertical lg:stats-horizontal shadow grid grid-cols-1 lg:grid-cols-4 gap-8 mx-12">
 
                 <div className="stat">
