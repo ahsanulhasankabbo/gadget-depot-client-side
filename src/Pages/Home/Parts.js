@@ -15,7 +15,7 @@ const Parts = () => {
             <h1 className='text-4xl my-12 text-center'>Available Parts in <span className='text-primary font-semibold'>Gadget Depot</span></h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mx-12'>
                 {
-                    parts.map(part => <Part
+                    parts?.map(part => <Part
                         key={part._id}
                         part={part}
                     ></Part>)

@@ -1,16 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import auth from '../../firebase.init';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import Loading from '../Shared/Loading';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useToken from '../../hooks/useToken';
+import { async } from '@firebase/util';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [signInWithEmailAndPassword, user, loading, error,] = useSignInWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+
+    const [email , setEmail ] = useState('');
 
     const [token] = useToken(user || gUser);
 
@@ -33,9 +39,13 @@ const Login = () => {
         return <Loading></Loading>
     }
     const onSubmit = data => {
-        // console.log(data);
+        setEmail(data.email);
         signInWithEmailAndPassword(data.email, data.password)
     };
+    const resetPassword = async () => {
+        await sendPasswordResetEmail(email);
+        toast.success('Send Email Password Reset')
+    }
     return (
         <div className='flex h-screen justify-center items-center'>
             <div className="card w-96 bg-base-100 shadow-xl">
@@ -92,6 +102,7 @@ const Login = () => {
                     </form>
 
                     <p>New to Gadget Depot <Link className='text-primary font-semibold' to='/signup'>Create a Account</Link></p>
+                    <p>Forget password? <button className='btn btn-sm btn-primary text-white' onClick={resetPassword} >Reset</button></p>
 
                     <div className="divider">OR</div>
                     <button onClick={() => signInWithGoogle()} className="btn btn-outline">Sign in with Google</button>
