@@ -1,6 +1,6 @@
 # Welcome to Gadget Depot
 
-Click here [gadget-depot](https://github.com/facebook/create-react-app).
+Click here [gadget-depot](https://gadget-depot.web.app/).
 
 ## Features and Functionality which i used in my project
 
