@@ -36,7 +36,7 @@ const UpdateProfile = () => {
                         linkedin: data.linkedin,
                         img: img
                     }
-                    fetch('http://localhost:5000/update', {
+                    fetch('https://boiling-island-29316.herokuapp.com/update', {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json',

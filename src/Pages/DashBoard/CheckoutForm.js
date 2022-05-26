@@ -13,7 +13,7 @@ const CheckoutForm = ({ payment }) => {
     const [clientSecret, setClientSecret] = useState('');
     const {_id, price,name,email } = payment;
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://boiling-island-29316.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -78,7 +78,7 @@ const CheckoutForm = ({ payment }) => {
                 transactionId: paymentIntent.id,
             }
 
-            fetch(`http://localhost:5000/payment/${_id}`,{
+            fetch(`https://boiling-island-29316.herokuapp.com/payment/${_id}`,{
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

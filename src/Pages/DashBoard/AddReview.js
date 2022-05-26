@@ -31,7 +31,7 @@ const AddReview = () => {
                         feedback: data.feedback,
                         image: img
                     }
-                    fetch('http://localhost:5000/addreview', {
+                    fetch('https://boiling-island-29316.herokuapp.com/addreview', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

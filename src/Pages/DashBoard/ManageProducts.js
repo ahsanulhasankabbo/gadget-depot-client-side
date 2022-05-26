@@ -6,7 +6,7 @@ import ManageSingleProduct from './ManageSingleProduct';
 
 const ManageProducts = () => {
     const [deleteModal, setDeleteModal] = useState(null);
-    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('http://localhost:5000/gadgets')
+    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('https://boiling-island-29316.herokuapp.com/gadgets')
         .then(res => res.json()))
 
     if (isLoading) {

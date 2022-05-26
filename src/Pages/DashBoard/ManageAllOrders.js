@@ -6,7 +6,7 @@ import ManageSingleOrder from './ManageSingleOrder';
 
 const ManageAllOrders = () => {
     const [deleteOrder, setDeleteOrder] = useState(null);
-    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('http://localhost:5000/manageorder')
+    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('https://boiling-island-29316.herokuapp.com/manageorder')
         .then(res => res.json()))
     if (isLoading) {
         return <Loading></Loading>

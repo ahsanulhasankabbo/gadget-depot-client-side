@@ -13,7 +13,7 @@ const MyOrders = () => {
     const [deleteModal, setDeleteModal] = useState(null);
     const navigate = useNavigate();
 
-    const { data: result, isLoading, refetch } = useQuery('result', () => fetch(`http://localhost:5000/order?email=${user.email}`, {
+    const { data: result, isLoading, refetch } = useQuery('result', () => fetch(`https://boiling-island-29316.herokuapp.com/order?email=${user.email}`, {
         method: 'GET',
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`

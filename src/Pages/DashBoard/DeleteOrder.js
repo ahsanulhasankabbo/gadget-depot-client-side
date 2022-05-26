@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 const DeleteOrder = ({ deleteOrder, setDeleteOrder, refetch }) => {
     const {_id} = deleteOrder;
     const handleDelete = id => {
-        const url = `http://localhost:5000/manageorder/${id}`
+        const url = `https://boiling-island-29316.herokuapp.com/manageorder/${id}`
         fetch(url, {
             method: 'DELETE',
             headers: {

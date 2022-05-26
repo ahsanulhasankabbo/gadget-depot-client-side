@@ -15,7 +15,7 @@ const Purchase = () => {
     const [error, setError] = useState('');
     // console.log(user)
     const { id } = useParams();
-    const { data: gadget, isLoading, refetch } = useQuery('gadget', () => fetch(`http://localhost:5000/gadget/${id}`).then(res => res.json()))
+    const { data: gadget, isLoading, refetch } = useQuery('gadget', () => fetch(`https://boiling-island-29316.herokuapp.com/gadget/${id}`).then(res => res.json()))
 
     if (isLoading) {
         return <Loading></Loading>
@@ -33,7 +33,7 @@ const Purchase = () => {
 
 
 
-            const url = `http://localhost:5000/gadget/${gadget._id}`;
+            const url = `https://boiling-island-29316.herokuapp.com/gadget/${gadget._id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -74,7 +74,7 @@ const Purchase = () => {
             phone: phone
         }
 
-        const url = `http://localhost:5000/gadget`;
+        const url = `https://boiling-island-29316.herokuapp.com/gadget`;
         fetch(url, {
             method: 'POST',
             headers: {

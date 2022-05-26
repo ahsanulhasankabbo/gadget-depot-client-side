@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import Part from './Part';
 
 const Parts = () => {
-    const { data: parts, isLoading } = useQuery('parts', () => fetch('http://localhost:5000/gadgets')
+    const { data: parts, isLoading } = useQuery('parts', () => fetch('https://boiling-island-29316.herokuapp.com/gadgets')
         .then(res => res.json()))
 
     const start = parts?.length - 6 ;

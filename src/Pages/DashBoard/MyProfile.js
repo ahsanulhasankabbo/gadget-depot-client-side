@@ -7,7 +7,7 @@ import Loading from '../Shared/Loading';
 
 const MyProfile = () => {
     const [user] = useAuthState(auth);
-    const { data: update, isLoading, refetch } = useQuery('update', () => fetch(`http://localhost:5000/update?email=${user.email}`, {
+    const { data: update, isLoading, refetch } = useQuery('update', () => fetch(`https://boiling-island-29316.herokuapp.com/update?email=${user.email}`, {
         method: 'GET',
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`

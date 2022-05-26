@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const DeleteModal = ({deleteModal,setDeleteModal,refetch}) => {
     const {_id  } = deleteModal;
     const handleDelete = id => {
-        const url = `http://localhost:5000/order/${id}`
+        const url = `https://boiling-island-29316.herokuapp.com/order/${id}`
         fetch(url, {
             method: 'DELETE'
         })

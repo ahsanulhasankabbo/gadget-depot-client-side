@@ -29,7 +29,7 @@ const AddProduct = () => {
                         discription: data.discription,
                         image: img
                     }
-                    fetch('http://localhost:5000/addproduct', {
+                    fetch('https://boiling-island-29316.herokuapp.com/addproduct', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

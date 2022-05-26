@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import UserRow from './UserRow';
 
 const MakeAdmin = () => {
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/makeadmin',{
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://boiling-island-29316.herokuapp.com/makeadmin',{
         method: 'GET',
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`

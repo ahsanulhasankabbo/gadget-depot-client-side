@@ -8,7 +8,7 @@ const ManageSingleOrder = ({ part, index,refetch,setDeleteOrder }) => {
         const approve = {
             approve : true
         };
-        const url = `http://localhost:5000/manageorder/${id}`;
+        const url = `https://boiling-island-29316.herokuapp.com/manageorder/${id}`;
         fetch(url,{
             method: 'PUT',
             headers:{
