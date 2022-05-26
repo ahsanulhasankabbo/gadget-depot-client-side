@@ -34,7 +34,7 @@ const MyPortfolio = () => {
             <div>
                 <div class="divider"><span className='text-4xl font-bold'>My Profile</span></div>
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-5 my-12 mx-20'>
-                    <div class="card card-compact w-96 bg-base-100 shadow-xl">
+                    <div class="card card-compact w-full md:w-96 bg-base-100 shadow-xl">
                         <figure><img src={car} alt="Shoes" /></figure>
                         <div class="card-body">
                             <div class="card-actions justify-end">
@@ -42,7 +42,7 @@ const MyPortfolio = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="card card-compact w-96 bg-base-100 shadow-xl">
+                    <div class="card card-compact w-full md:w-96 bg-base-100 shadow-xl">
                         <figure><img src={camera} alt="Shoes" /></figure>
                         <div class="card-body">
                             <div class="card-actions justify-end">
@@ -50,7 +50,7 @@ const MyPortfolio = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="card card-compact w-96 bg-base-100 shadow-xl">
+                    <div class="card card-compact w-full md:w-96 bg-base-100 shadow-xl">
                         <figure><img src={tutor} alt="Shoes" /></figure>
                         <div class="card-body">
                             <div class="card-actions justify-end">
